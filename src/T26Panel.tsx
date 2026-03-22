@@ -13,10 +13,12 @@ const STAGE_HEIGHT = CAR_IMAGE_HEIGHT + STAGE_PADDING_Y * 2;
 
 type ShutdownIndicatorKey =
   | "inertiaSwitch"
-  | "interlockSwitch"
-  | "emergencyPushCockpitLeft"
-  | "emergencyPushUpperRight"
-  | "emergencyPushLowerCenter";
+  | "sidePanelInterlock"
+  | "junctionBoxInterlock"
+  | "emergencyPushCocpit"
+  | "leftEmergencyButton"
+  | "rightEmergencyButton"
+  | "botsShutdown";
 
 type ShutdownPaths = Record<ShutdownIndicatorKey, string | undefined>;
 type PanelState = { paths: ShutdownPaths };
@@ -24,53 +26,62 @@ type PanelState = { paths: ShutdownPaths };
 type ShutdownIndicatorConfig = {
   id: ShutdownIndicatorKey;
   label: string;
-  defaultPath: string;
   left: number;
   top: number;
   labelOffsetX?: number;
   labelOffsetY?: number;
 };
 
+// In case of removing or adding shutdowns, update this list and the ShutdownIndicatorKey type above accordingly.
 const SHUTDOWN_INDICATORS: ShutdownIndicatorConfig[] = [
   {
     id: "inertiaSwitch",
     label: "Inertia Switch",
-    defaultPath: "/fs/shutdown.inertiaSwitch",
-    left: 54.4,
-    top: 49.1,
+    left: 37.0,
+    top: 44.5,
     labelOffsetY: -4.2,
   },
   {
-    id: "interlockSwitch",
-    label: "Interlock Switch",
-    defaultPath: "/fs/shutdown.interlockSwitch",
-    left: 11.4,
-    top: 50.3,
-    labelOffsetX: -6.3,
+    id: "sidePanelInterlock",
+    label: "Side Panel Interlock",
+    left: 66.0,
+    top: 41.0,
+    labelOffsetX: -7.0,
   },
   {
-    id: "emergencyPushCockpitLeft",
-    label: "Emergency Cockpit Left",
-    defaultPath: "/fs/shutdown.emergencyPushCockpitLeft",
-    left: 43.5,
-    top: 68.8,
+    id: "junctionBoxInterlock",
+    label: "Junction Box Interlock",
+    left: 70.5,
+    top: 51.0,
+    labelOffsetX: -7.5,
+  },
+  {
+    id: "emergencyPushCocpit",
+    label: "Emergency Cocpit",
+    left: 42.5,
+    top: 60.5,
     labelOffsetY: 4.3,
   },
   {
-    id: "emergencyPushUpperRight",
-    label: "Emergency Upper Right",
-    defaultPath: "/fs/shutdown.emergencyPushUpperRight",
-    left: 19.8,
-    top: 41.7,
+    id: "rightEmergencyButton",
+    label: "Right Emergency Button",
+    left: 59.5,
+    top: 35.5,
     labelOffsetY: -4.2,
   },
   {
-    id: "emergencyPushLowerCenter",
-    label: "Emergency Lower Center",
-    defaultPath: "/fs/shutdown.emergencyPushLowerCenter",
-    left: 20.3,
-    top: 79.2,
+    id: "leftEmergencyButton",
+    label: "Left Emergency Button",
+    left: 59.5,
+    top: 67.5,
     labelOffsetY: 4.2,
+  },
+  {
+    id: "botsShutdown",
+    label: "BOTS",
+    left: 14.5,
+    top: 51.0,
+    labelOffsetY: -4.2,
   },
 ];
 
