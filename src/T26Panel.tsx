@@ -15,10 +15,12 @@ type ShutdownIndicatorKey =
   | "inertiaSwitch"
   | "sidePanelInterlock"
   | "junctionBoxInterlock"
-  | "emergencyPushCocpit"
+  | "emergencyPushCockpit"
   | "leftEmergencyButton"
   | "rightEmergencyButton"
-  | "botsShutdown";
+  | "botsShutdown"
+  | "ACU"
+  | "RES";
 
 type ShutdownPaths = Record<ShutdownIndicatorKey, string | undefined>;
 type PanelState = { paths: ShutdownPaths };
@@ -36,52 +38,66 @@ type ShutdownIndicatorConfig = {
 const SHUTDOWN_INDICATORS: ShutdownIndicatorConfig[] = [
   {
     id: "inertiaSwitch",
-    label: "Inertia Switch",
+    label: "3 - Inertia Switch",
     left: 37.0,
     top: 44.5,
     labelOffsetY: -4.2,
   },
   {
     id: "sidePanelInterlock",
-    label: "Side Panel Interlock",
+    label: "6 -  Side Panel Interlock",
     left: 66.0,
     top: 41.0,
-    labelOffsetX: -7.0,
+    labelOffsetX: 8.3,
   },
   {
     id: "junctionBoxInterlock",
-    label: "Junction Box Interlock",
+    label: "8 - Junction Box Interlock",
     left: 70.5,
     top: 51.0,
-    labelOffsetX: -7.5,
+    labelOffsetX: 8.8,
   },
   {
-    id: "emergencyPushCocpit",
-    label: "Emergency Cocpit",
+    id: "emergencyPushCockpit",
+    label: "4 - Emergency Cockpit",
     left: 42.5,
     top: 60.5,
-    labelOffsetY: 4.3,
+    labelOffsetX: -8.0,
   },
-  {
+  { 
     id: "rightEmergencyButton",
-    label: "Right Emergency Button",
+    label: "5 - Right Emergency Button",
     left: 59.5,
     top: 35.5,
     labelOffsetY: -4.2,
   },
   {
     id: "leftEmergencyButton",
-    label: "Left Emergency Button",
+    label: "7 -  Left Emergency Button",
     left: 59.5,
     top: 67.5,
-    labelOffsetY: 4.2,
+    labelOffsetX: -9.0,
   },
   {
     id: "botsShutdown",
-    label: "BOTS",
+    label: "2 - BOTS",
     left: 14.5,
     top: 51.0,
     labelOffsetY: -4.2,
+  },
+  {
+    id: "ACU",
+    label: "9 - ACU",
+    left: 63.0,
+    top: 55.5,
+    labelOffsetX: -4.0,
+  },
+  {
+    id: "RES",
+    label: "1 - RES",
+    left: 63.0,
+    top: 61.0,
+    labelOffsetX: 4.0,
   },
 ];
 
