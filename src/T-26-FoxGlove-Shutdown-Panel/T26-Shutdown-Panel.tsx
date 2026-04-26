@@ -1,7 +1,11 @@
+/* eslint-disable*/
+
+
 import { PanelExtensionContext, SettingsTreeAction } from "@foxglove/extension";
 import { ReactElement, useEffect, useLayoutEffect, useRef, useState } from "react";
+
 import { createRoot } from "react-dom/client";
-import { carImage } from "./carImage";
+import { carImage } from "../Images/Base64/carImage";
 
 const CAR_IMAGE_WIDTH = 1096;
 const CAR_IMAGE_HEIGHT = 681;
@@ -11,6 +15,7 @@ const STAGE_WIDTH = CAR_IMAGE_WIDTH + STAGE_PADDING_X * 2;
 const STAGE_HEIGHT = CAR_IMAGE_HEIGHT + STAGE_PADDING_Y * 2;
 
 type ShutdownIndicatorKey =
+  // TODO: Add Suspension Shutdown when i have a good location for it on the panel and update the UI accordingly.
   | "RES"
   | "botsShutdown"
   | "inertiaSwitch"
@@ -35,6 +40,7 @@ type ShutdownIndicatorConfig = {
 
 // In case of removing or adding shutdowns, update this list and the ShutdownIndicatorKey type above accordingly.
 const SHUTDOWN_INDICATORS: ShutdownIndicatorConfig[] = [
+  //TODO: Add field to separate shutdowns classes like Shutdowns, Springs...
   {
     id: "RES",
     label: "1 - RES",
@@ -63,7 +69,7 @@ const SHUTDOWN_INDICATORS: ShutdownIndicatorConfig[] = [
     top: 57.0,
     labelOffsetX: -8.0,
   },
-  { 
+  {
     id: "rightEmergencyButton",
     label: "5 - Right Emergency Button",
     left: 59.5,
@@ -162,6 +168,7 @@ function readNumericValue(message: unknown, dataPath?: string): number | undefin
   return undefined;
 }
 
+// TODO: Modify to have different images according to the 
 function ShutdownIndicator({
   indicator,
   value,
@@ -221,7 +228,7 @@ function ShutdownIndicator({
   );
 }
 
-function T26Panel({ context }: { context: PanelExtensionContext }): ReactElement {
+function T26ShutdownPanel({ context }: { context: PanelExtensionContext }): ReactElement {
   const [latestMessages, setLatestMessages] = useState<Record<string, unknown>>({});
   const [renderDone, setRenderDone] = useState<(() => void) | undefined>();
   const frameHostRef = useRef<HTMLDivElement | null>(null);
@@ -242,10 +249,10 @@ function T26Panel({ context }: { context: PanelExtensionContext }): ReactElement
     > = {};
 
     for (const indicator of SHUTDOWN_INDICATORS) {
-      fields[indicator.id] = {
-        label: indicator.label,
-        input: "messagepath",
-        value: state.paths[indicator.id],
+      fields[indicator.id] = { // Example: { id: "RES", label: "1 - RES",left: 63.0,top: 59.0,labelOffsetX: 4.0,}
+        label: indicator.label, // Example: "1 - RES"
+        input: "messagepath", // "messagepath" -> special input type that shows a topic selector and optional data path input in the UI
+        value: state.paths[indicator.id], // Example: state.paths["RES"] -> "/example/topic.value"
       };
     }
 
@@ -280,6 +287,17 @@ function T26Panel({ context }: { context: PanelExtensionContext }): ReactElement
           label: "Shutdown Paths",
           fields,
         },
+        //TODO: Add Another Section to Spring/Coils
+        // Springs: {
+        //   label: "Springs",
+        //   fields: {
+        //     someField: {
+        //       label: "Some Field",
+        //       input: "messagepath",
+        //       value: "dadadadada",
+        //     },
+        //   },
+        // },
       },
     });
   }, [context, state.paths]);
@@ -435,9 +453,9 @@ function T26Panel({ context }: { context: PanelExtensionContext }): ReactElement
   );
 }
 
-export function initT26Panel(context: PanelExtensionContext): () => void {
+export function initT26ShutdownPanel(context: PanelExtensionContext): () => void {
   const root = createRoot(context.panelElement);
-  root.render(<T26Panel context={context} />);
+  root.render(<T26ShutdownPanel context={context} />);
 
   return () => {
     root.unmount();
