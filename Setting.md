@@ -2,7 +2,7 @@
 Import this inside the Settings Panel (no need for manual insertion ) :  
 
 Shutdowns:
-```python
+```json
 {
   "paths": {
     "RES": "/can/shutdown.RES",
@@ -20,7 +20,7 @@ Shutdowns:
 ```
 
 Springs:
-```python
+```json
 {
   "springPaths": {
     "FRONT_LEFT": "/can/springs.FL",
@@ -33,6 +33,28 @@ Springs:
     "FRONT_RIGHT": "/can/wheels/speed.FR",
     "REAR_LEFT": "/can/wheels/speed.RL",
     "REAR_RIGHT": "/can/wheels/speed.RR"
+  }
+}
+```
+
+Battery and Motors:
+```json
+{
+  "leftMotorPaths": {
+    "temperature": "/can/motor.left_motor_temperature",
+    "realCurrent": "/can/motor.left_motor_real_current",
+    "askedCurrent": "/can/motor.left_motor_asked_current"
+  },
+  "rightMotorPaths": {
+    "temperature": "/can/motor.right_motor_temperature",
+    "realCurrent": "/can/motor.right_motor_real_current",
+    "askedCurrent": "/can/motor.right_motor_asked_current"
+  },
+  "batteryPaths": {
+    "temperature": "/can/battery.temperature",
+    "power": "/can/battery.power",
+    "percentage": "/can/battery.percentage",
+    "batteryTension": "/can/battery.battery_tension"
   }
 }
 ```
